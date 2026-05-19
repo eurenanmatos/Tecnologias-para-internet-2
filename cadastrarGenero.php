@@ -3,7 +3,7 @@ include("valida.php");
 ?>
 
 <html>
-<title>Cadastrar Usuário</title>
+<title>Cadastrar Gênero</title>
 
 <head>
 
@@ -34,29 +34,25 @@ include("valida.php");
         </div>
 
         <div style="background-color: #ddd; min-height: 500px; width:80%; float:left;">
-            <h2>Cadastrar Usuário</h2>
-            <form method="post" action="inserirUsuario.php">
-                CPF: <input type="text" name="cpf"><br>
-                Nome: <input type="text" name="nome"><br>
-                Senha: <input type="text" name="senha"><br>
+            <h2>Cadastrar Gênero</h2>
+            <form method="post" action="inserirGenero.php">
+                Descrição: <input type="text" name="Descrição"><br>
                 <input type="submit" value="Inserir">
             </form>
 
             <hr>
 
-            <h2>Listagem de Usuarios</h2>
+            <h2>Listagem de Gêneros</h2>
             <?php include("conexao.php"); ?>
 
             <table>
                 <tr>
-                    <td>CPF</td>
-                    <td>NOME</td>
-                    <td>SENHA</td>
+                    <td>DESCRICAO</td>
                     <td>ALTERAR</td>
                     <td>APAGAR</td>
                 </tr>
                 <?php
-                $sql = "select * from usuarios";
+                $sql = "select * from generos";
                 $stmt = $conn->prepare($sql);
 
                 if ($stmt) {
@@ -67,12 +63,10 @@ include("valida.php");
                         while ($row = $result->fetch_assoc()) {
                 ?>
                             <tr>
-                                <td><?= $row['cpf']; ?></td>
-                                <td><?= $row['nome']; ?></td>
-                                <td><?= $row['senha']; ?></td>
+                                <td><?= $row['descricao']; ?></td>
                                 <td>ALTERAR</td>
-                                <td><form method="post" action="apagarUsuario.php">
-                                        <input type="hidden" name="cpf" value="<?= $row['cpf']; ?>">
+                                <td><form method="post" action="apagarGenero.php">
+                                        <input type="hidden" value="<?= $row['genero']; ?>" name="genero">
                                         <input type="submit" value="APAGAR">
                                     </form>
                                 </td>
@@ -80,7 +74,7 @@ include("valida.php");
                 <?php
                         }
                     } else {
-                        echo "Nenhum usuário encontrado";
+                        echo "Nenhum dado encontrado";
                     }
                 } else {
                     echo "Erro na consulta SQL";
